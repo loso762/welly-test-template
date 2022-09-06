@@ -1,1 +1,17 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+
+
+## Quick Overview
+```
+yarn
+yarn dev
+```
+
+** 웰리의 기본 환경인 next.js + styled-component + mobX 로 구성돼있습니다.
+구동시 localhost:8000 에서 확인하실 수 있습니다.
+
+
+## 과제 안내
+
+- /test 페이지 안에 웰리 메인 페이지에 있는 포토리뷰 슬라이더를 구현합니다. 최대한 비슷한 형태로 구현해주세요. 
+- 라이브러리 사용에 대한 제한은 없습니다. 
+- 데이터는 더미로 작성하며, 필요한 이미지는 `src/assets/dummy`에 있습니다. api 연결을 위해 파싱하기 편한 객체 형태로 구현합니다. 객체의 key 값은 자유롭게 설정합니다.
