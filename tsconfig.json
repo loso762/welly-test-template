@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "moduleResolution": "node",
+    "outDir": ".next/production-server/",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "isolatedModules": true,
+    "strictNullChecks": false,
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true
+  },
+  // "include": [
+  //   // "src/",
+  //   // "apis",
+  //   // "store",
+  //   // "pages/_error.tsx",
+  //   // "interface",
+  //   // "src/utils"
+  // ],
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}
