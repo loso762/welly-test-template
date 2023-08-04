@@ -1,11 +1,10 @@
 import { observable, makeObservable, action } from "mobx";
 import { createContext } from "react";
 
-class testStore {
+export default class promotionStore {
   /** 
    * https://mobx.js.org/installation.html
    */
-}
-const testContext = createContext(new testStore());
 
-export default testContext;
+  @observable promotionDetails = null;
+}
