@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import PromotionStore, {PromotionDetails} from "stores/PromotionStore";
+import {PromotionDetails} from "stores/PromotionStore";
 import {toJS} from "mobx";
 import Container from "src/layout/Container";
 import TabContainer from "src/layout/Tab";

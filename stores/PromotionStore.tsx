@@ -7,7 +7,10 @@ export type PromotionDetails = {
 };
 
 export default class promotionStore {
-  promotionDetails = "";
+  promotionDetails = {
+    image_section: [],
+    open_page: true,
+  };
 
   constructor() {
     makeObservable(this, {
@@ -33,8 +36,6 @@ export default class promotionStore {
       });
 
       this.promotionDetails = response.data.records[0].fields;
-
-      return this.promotionDetails;
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;

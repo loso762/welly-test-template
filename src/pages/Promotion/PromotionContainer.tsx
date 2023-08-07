@@ -12,10 +12,10 @@ const PromotionContainer = observer(() => {
     async function fetchData() {
       try {
         if (typeof router.query.name === "string") {
-          const data = await promotion.getPromotionData(router.query.name);
+          await promotion.getPromotionData(router.query.name);
 
           //open_page false일 경우
-          if (!data.open_page) {
+          if (!promotion.promotionDetails.open_page) {
             alert("접근하실 수 없는 페이지 입니다.");
             router.push("/");
           }

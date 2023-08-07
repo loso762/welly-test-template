@@ -17,7 +17,6 @@ function CountPage() {
     <Container background="black" color="white" height="100vh" justify="baseline" pt="60">
       <Header />
       <P>
-        {" "}
         9월에는 우리 꼭 <br />
         건강한 루틴 만들어요!
       </P>
