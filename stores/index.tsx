@@ -1,8 +1,8 @@
-import { useStaticRendering } from "mobx-react";
+import {enableStaticRendering} from "mobx-react";
 import PromotionStore from "./PromotionStore";
 
 const isServer = typeof window === "undefined";
-useStaticRendering(isServer);
+enableStaticRendering(isServer);
 
 let store = null;
 

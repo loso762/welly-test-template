@@ -1,31 +1,38 @@
-import React, { Component } from 'react';
+import React, {useEffect} from "react";
 import PromotionPresenter from "./PromotionPresenter";
-import { observer, inject } from "mobx-react";
-import PromotionStore from "stores/PromotionStore";
+import {observer} from "mobx-react";
+import {useRouter} from "next/router";
+import useStores from "src/hooks/useStores";
 
-interface IProps {
-  promotionStore?: PromotionStore;
-}
+const PromotionContainer = observer(() => {
+  const router = useRouter();
+  const {promotion} = useStores();
 
-@inject("promotionStore")
-@observer
-class PromotionContainer extends React.Component<IProps, {}> {
-  constructor(props) {
-    super(props);
-  }
-  
-  async componentDidMount() {
-  }
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (typeof router.query.name === "string") {
+          const data = await promotion.getPromotionData(router.query.name);
 
-  render() {
-    return (
-      <>
-        <PromotionPresenter
-        />
-      </>
-    );
-  }
-}
+          //open_page false일 경우
+          if (!data.open_page) {
+            alert("접근하실 수 없는 페이지 입니다.");
+            router.push("/");
+          }
+        }
+      } catch (error) {
+        throw new Error("데이터 패칭 에러 발생");
+      }
+    }
 
+    fetchData();
+  }, []);
+
+  return (
+    <>
+      <PromotionPresenter promotion={promotion.promotionDetails} />
+    </>
+  );
+});
 
 export default PromotionContainer;

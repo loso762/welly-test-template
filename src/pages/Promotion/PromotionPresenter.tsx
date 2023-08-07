@@ -1,17 +1,32 @@
-import React from 'react';
-import Link from "next/link";
-import styled, { css } from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import PromotionStore, {PromotionDetails} from "stores/PromotionStore";
+import {toJS} from "mobx";
+import Container from "src/layout/Container";
+import TabContainer from "src/layout/Tab";
+import Loader from "./Loader";
 
-const Container = styled.div`
+const Img = styled.img`
+  width: 100%;
 `;
 
-interface IProps{}
+const PromotionPresenter = ({promotion}: {promotion: PromotionDetails}) => {
+  const Details = toJS(promotion);
 
-const PromotionPresenter = ({
-}:IProps) => {
   return (
-    <Container>
-    </Container>
+    <>
+      {Details ? (
+        <Container>
+          {Details?.image_section.map(({url}, idx: number) => {
+            return <Img key={idx} src={url}></Img>;
+          })}
+
+          <TabContainer />
+        </Container>
+      ) : (
+        <Loader />
+      )}
+    </>
   );
 };
 

@@ -1,2 +1,11 @@
 import PromotionContainer from "./PromotionContainer";
-export default PromotionContainer;
+
+function index() {
+  return (
+    <>
+      <PromotionContainer />
+    </>
+  );
+}
+
+export default index;

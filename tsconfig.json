@@ -3,10 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "outDir": ".next/production-server/",
     "allowSyntheticDefaultImports": true,
@@ -20,6 +17,7 @@
     "isolatedModules": true,
     "strictNullChecks": false,
     "experimentalDecorators": true,
+    "useDefineForClassFields": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": true
@@ -32,12 +30,6 @@
   //   // "interface",
   //   // "src/utils"
   // ],
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

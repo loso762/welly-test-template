@@ -1,2 +1,7 @@
-import Test from "../../src/pages/Test";
-export default Test;
+import React from "react";
+
+function TestPage() {
+  return <div>TestPage</div>;
+}
+
+export default TestPage;
