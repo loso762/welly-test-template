@@ -2,14 +2,24 @@ import axios from "axios";
 import {observable, makeObservable, action} from "mobx";
 
 export type PromotionDetails = {
-  image_section?: {url: string}[];
-  open_page?: boolean;
+  image_section: {url: string}[];
+  open_page: boolean;
+  use_counter: boolean;
+  counter_target_time: string;
+  counter_bg_color: string;
+  main_button_text: string;
+  open_payment: boolean;
 };
 
 export default class promotionStore {
   promotionDetails = {
     image_section: [],
     open_page: true,
+    use_counter: true,
+    counter_target_time: "",
+    counter_bg_color: "",
+    main_button_text: "",
+    open_payment: true,
   };
 
   constructor() {
@@ -36,6 +46,7 @@ export default class promotionStore {
       });
 
       this.promotionDetails = response.data.records[0].fields;
+      console.log(response.data.records[0].fields);
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;

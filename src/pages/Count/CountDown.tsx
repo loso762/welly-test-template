@@ -2,6 +2,33 @@ import React, {useState, useEffect} from "react";
 import Mybutton from "src/layout/Button";
 import styled from "styled-components";
 
+const Div = styled.div`
+  display: ${(props) => props.display || "flex"};
+  flex-direction: column;
+  justify-contents: center;
+  width: 100%;
+  height: 600px;
+  align-items: center;
+  background-color: ${(props) => props.bg || "black"};
+`;
+
+const P1 = styled.p`
+  margin: 250px 0 0;
+  font-size: 28px;
+  text-align: center;
+  line-height: 40px;
+  font-weight: 700;
+  color: white;
+`;
+
+const P2 = styled.p`
+  display: flex;
+  margin: 30px 0 30px;
+  align-items: end;
+  font-size: ${(props) => props.fontSize || "11px"};
+  color: white;
+`;
+
 const Span = styled.span`
   height: 45px;
   width: 45px;
@@ -15,70 +42,75 @@ const Span = styled.span`
   font-size: 24px;
 `;
 
-const P = styled.p`
-  display: flex;
-  align-items: end;
-  font-size: 11px;
-`;
-
-const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 50px 0;
-`;
-
-const calcTime = (targetDate: Date) => {
-  const currentTime: number = new Date().getTime();
-  const difference: number = targetDate.getTime() - currentTime;
-
-  const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-  return {days, hours, minutes, seconds};
+type Props = {
+  targetTime: string;
+  bgColor: string;
+  mainButtonText: string;
+  openPayment: boolean;
+  useCounter: boolean;
 };
 
-const CountDown = ({targetDate}: {targetDate: Date}) => {
-  const [remainingTime, setRemainingTime] = useState(calcTime(targetDate));
-  const [openPayment, setOpenPayment] = useState(true);
-  const main_button_text = "구매하기";
+const CountDown = ({targetTime, bgColor, mainButtonText, openPayment, useCounter}: Props) => {
+  //useCounter가 false면 영역 hide
+  const displayDiv = useCounter ? "flex" : "none";
 
+  const [remainTime, setRemainTime] = useState({days: 0, hours: 0, minutes: 0, seconds: 0});
+  const date = new Date(targetTime);
+
+  let nextMonth = date.getMonth() + 2;
+  if (nextMonth === 13) {
+    nextMonth = 1;
+  }
+
+  // 남은 시간 구하는 함수
+  function calcTimeRemaining(targetTime: string) {
+    const timeDifference = new Date(targetTime).getTime() - new Date().getTime();
+
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return {
+      days,
+      hours,
+      minutes,
+      seconds,
+    };
+  }
+
+  // 초마다 카운팅
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setRemainingTime(calcTime(targetDate));
+    const interval = setInterval(() => {
+      setRemainTime(calcTimeRemaining(targetTime));
     }, 1000);
 
-    const difference = targetDate.getTime() - new Date().getTime();
-
-    if (difference < 0) {
-      setOpenPayment(false);
-    }
-
-    return () => clearInterval(intervalId);
-  }, [targetDate]);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [calcTimeRemaining]);
 
   return (
-    <>
-      <Div>
-        <p style={{fontSize: "15px", textAlign: "center", margin: "0 0 40px"}}>
-          {targetDate.getMonth() + 1}월 {targetDate.getDate()}일 자정까지만 구매 가능!
-        </p>
-        <P>
-          <Span>{remainingTime.days}</Span>일 <Span>{remainingTime.hours}</Span>시{" "}
-          <Span>{remainingTime.minutes}</Span>분 <Span>{remainingTime.seconds}</Span>초
-        </P>
-      </Div>
+    <Div bg={bgColor} display={displayDiv}>
+      <P1>
+        {nextMonth}월에는 우리 꼭 <br /> 건강한 루틴 만들어요!
+      </P1>
+      <P2 fontSize="18px">
+        {date.getMonth() + 1}월 {date.getDate()}일 자정까지만 구매 가능!
+      </P2>
+      <P2>
+        <Span>{remainTime.days}</Span>일 <Span>{remainTime.hours}</Span>시 <Span>{remainTime.minutes}</Span>분{" "}
+        <Span>{remainTime.seconds}</Span>초
+      </P2>
 
       <Mybutton
         width="80%"
         onClick={() => {
           !openPayment && alert("이 상품은 현재 판매 상품이 아닙니다.");
         }}>
-        {main_button_text}
+        {mainButtonText}
       </Mybutton>
-    </>
+    </Div>
   );
 };
 
